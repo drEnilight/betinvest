@@ -2,11 +2,15 @@
 -export([words/1]).
 
 words(String) ->
-  lists:reverse(words(String, [<<>>])).
+  lists:reverse(words(String, <<>>, [])).
 
-words(<<>>, Acc) ->
+words(<<>>, <<>>, Acc) ->
   Acc;
-words(<<" ", X/utf8, Rest/binary>>, Acc) ->
-  words(Rest, [<<X/utf8>>|Acc]);
-words(<<X/utf8, Rest/binary>>, [Word|Tail]) ->
-  words(Rest, [<<Word/binary, X/utf8>>|Tail]).
+words(<<>>, Word, Acc) ->
+  [Word|Acc];
+words(<<" ", Rest/binary>>, <<>>, Acc) ->
+  words(Rest, <<>>, Acc);
+words(<<" ", Rest/binary>>, Word, Acc) ->
+  words(Rest, <<>>, [Word|Acc]);
+words(<<X/utf8, Rest/binary>>, Word, Acc) ->
+  words(Rest, <<Word/binary, X/utf8>>, Acc).

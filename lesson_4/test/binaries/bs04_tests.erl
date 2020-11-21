@@ -1,6 +1,6 @@
 -module(bs04_tests).
 -define(JSON, <<"{
-                  'squadName': 'Super hero squad',
+                  'squadName': 'Super, hero, squad',
                   'homeTown': 'Metro City',
                   'formed': 2016,
                   'secretBase': 'Super tower',
@@ -46,7 +46,7 @@
 
 decode_test_() ->
   [
-    ?_assertEqual(bs04:decode(?JSON, proplist), [{<<"squadName">>,<<"Super hero squad">>},
+    ?_assertEqual(bs04:decode(?JSON, proplist), [{<<"squadName">>,<<"Super, hero, squad">>},
                                                  {<<"homeTown">>,<<"Metro City">>},
                                                  {<<"formed">>,2016},
                                                  {<<"secretBase">>,<<"Super tower">>},
@@ -98,6 +98,6 @@ decode_test_() ->
                                                          <<"Interdimensional travel">>],
                                                     <<"secretIdentity">> => <<"Unknown">>}],
                                              <<"secretBase">> => <<"Super tower">>,
-                                             <<"squadName">> => <<"Super hero squad">>}),
+                                             <<"squadName">> => <<"Super, hero, squad">>}),
     ?_assertEqual(bs04:decode(?JSON, list), undefined)
   ].

@@ -5,7 +5,8 @@
 words_test_() ->
   [
     ?_assertEqual(bs02:words(<<"Hello world">>), [<<"Hello">>, <<"world">>]),
+    ?_assertEqual(bs02:words(<<"   Hello    world    ">>), [<<"Hello">>, <<"world">>]),
     ?_assertEqual(bs02:words(<<"welcome">>), [<<"welcome">>]),
-    ?_assertEqual(bs02:words(<<"">>), [<<"">>]),
+    ?_assertEqual(bs02:words(<<"">>), []),
     ?_assertError(function_clause, bs02:words([]))
   ].
