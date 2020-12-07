@@ -59,13 +59,9 @@ get_value(TableName, Key) ->
   end.
 
 delete_records(TableName) ->
-  MatchSpec = [{{'$1','$2', '$3'},[{'<','$3',os:system_time(second)}],[['$1']]}],
-  delete_records(TableName, ets:select(TableName, MatchSpec)).
-delete_records(TableName, []) ->
-  ok;
-delete_records(TableName, [[Key]|T]) ->
-  ets:delete(TableName, Key),
-  delete_records(TableName, T).
+  MatchSpec = [{{'$1','$2', '$3'},[{'<','$3',os:system_time(second)}],[true]}],
+  ets:select_delete(TableName, MatchSpec),
+  ok.
 
 is_exists(TableName) ->
   lists:member(TableName, ets:all()).
